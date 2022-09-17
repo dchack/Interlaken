@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package protobuf;
+
+option java_multiple_files = true;
+option java_package = "com.hopehack.interlaken.common.protobuf";
+option java_outer_classname = "MsgWrapper";
+
+message Msg {
+
+  enum Type {
+    PING = 0;
+    PONG = 1;
+    LOGIN = 2;
+    LOGINOUT = 3;
+    MESSAGE = 4;
+  }
+  int64 id = 1;
+  Type type = 2;
+  oneof body {
+    Ping ping = 3;
+    Pong pong = 4;
+    Login login = 5;
+    LoginOut loginOut = 6;
+    Message message = 7;
+  }
+
+  message Ping{
+    string content = 1;
+  }
+
+  message Pong{
+    string content = 1;
+  }
+
+  message Login{
+    string deviceId = 1;
+    string appVersion = 2;
+    string userId = 3;
+    string osVersion = 4;
+  }
+
+  message LoginOut{
+    string userId = 1;
+  }
+
+  message Message{
+    int32 type = 1;
+    string target = 2;
+    string content = 3;
+    string ext = 4;
+  }
+
+}
